@@ -1,10 +1,13 @@
 package com.pro24y3s2doemakra.rest_api.controller;
-import com.pro24y3s2doemakra.rest_api.service.impl.UserService;
+import com.pro24y3s2doemakra.rest_api.entity.User;
+import com.pro24y3s2doemakra.rest_api.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/users")
 public class UserController {
+
+//    UserService userService1 = new UserServiceImpl();
 
     private final UserService userService;
 
@@ -21,9 +24,10 @@ public class UserController {
 
     // POST
     @PostMapping
-    public void userPOST() {
+    public void userPOST(@RequestBody User user) {
         System.out.println("User Create");
-        userService.create();
+        System.out.println(user);
+        userService.create(user);
     }
 
     //PUT
