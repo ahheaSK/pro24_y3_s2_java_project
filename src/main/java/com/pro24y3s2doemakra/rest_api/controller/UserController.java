@@ -1,6 +1,7 @@
 package com.pro24y3s2doemakra.rest_api.controller;
 import com.pro24y3s2doemakra.rest_api.entity.User;
 import com.pro24y3s2doemakra.rest_api.service.UserService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,9 +16,10 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping
-    public String getTest(){
-        return "Test Controller";
+    @GetMapping("{id}")
+    public ResponseEntity<?> getById(@PathVariable Long id){
+        User user = userService.getById(id);
+        return ResponseEntity.ok(user);
     }
 
     // HTTP Method POST, PUT, PATCH, DELETE
@@ -31,9 +33,10 @@ public class UserController {
     }
 
     //PUT
-    @PutMapping
-    public void userPUT() {
-        System.out.println("User update full data");
+    @PutMapping("{id}")
+    public ResponseEntity<?> userPUT(@PathVariable Long id, @RequestBody User user) {
+        User user1 = userService.updateById(id, user);
+        return ResponseEntity.ok(user1);
     }
 
     //Patch
