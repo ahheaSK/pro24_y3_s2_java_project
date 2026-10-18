@@ -1,4 +1,6 @@
 package com.pro24y3s2doemakra.rest_api.controller;
+import com.pro24y3s2doemakra.rest_api.dto.request.UserRequest;
+import com.pro24y3s2doemakra.rest_api.dto.response.UserResponse;
 import com.pro24y3s2doemakra.rest_api.entity.User;
 import com.pro24y3s2doemakra.rest_api.service.UserService;
 import org.springframework.http.ResponseEntity;
@@ -26,10 +28,10 @@ public class UserController {
 
     // POST
     @PostMapping
-    public void userPOST(@RequestBody User user) {
-        System.out.println("User Create");
-        System.out.println(user);
-        userService.create(user);
+    public ResponseEntity<?> userPOST(@RequestBody UserRequest user) {
+
+        UserResponse userResponse = userService.create(user);
+        return ResponseEntity.ok(userResponse);
     }
 
     //PUT

@@ -1,5 +1,7 @@
 package com.pro24y3s2doemakra.rest_api.service.impl;
 
+import com.pro24y3s2doemakra.rest_api.dto.request.UserRequest;
+import com.pro24y3s2doemakra.rest_api.dto.response.UserResponse;
 import com.pro24y3s2doemakra.rest_api.entity.User;
 import com.pro24y3s2doemakra.rest_api.repository.UserRepository;
 import com.pro24y3s2doemakra.rest_api.service.UserService;
@@ -18,9 +20,24 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public void create(User user) {
-        user.setId(0);
-        userRepository.save(user);
+    public UserResponse create(UserRequest user) {
+        //Reference Type objectNam Object
+        User userEntity = new User();
+        userEntity.setNickName(user.getNickName());
+        userEntity.setUsername(user.getUsername());
+        userEntity.setPasswordHash(user.getPasswordHash());
+        userEntity.setEnabled(user.isEnabled());
+
+        User save = userRepository.save(userEntity);
+
+        UserResponse userResponse = new UserResponse();
+
+        userResponse.setId(save.getId());
+        userResponse.setNickName(save.getNickName());
+        userResponse.setUsername(save.getUsername());
+        userResponse.setEnabled(save.getEnabled());
+
+        return userResponse;
     }
 
 
