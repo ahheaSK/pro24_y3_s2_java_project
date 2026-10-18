@@ -45,9 +45,10 @@ public class UserController {
         System.out.println("User update specific data");
     }
 
-    @DeleteMapping
-    public void userDELETE() {
-        System.out.println("User Delete Data");
+    @DeleteMapping("{id}")
+    public ResponseEntity<?> userDELETE(@PathVariable Long id) {
+        userService.deleteById(id);
+        return ResponseEntity.ok(null);
     }
 
 }
