@@ -3,6 +3,7 @@ package com.pro24y3s2doemakra.rest_api.service.impl;
 import com.pro24y3s2doemakra.rest_api.dto.request.UserRequest;
 import com.pro24y3s2doemakra.rest_api.dto.response.UserResponse;
 import com.pro24y3s2doemakra.rest_api.entity.User;
+import com.pro24y3s2doemakra.rest_api.mapper.UserMapper;
 import com.pro24y3s2doemakra.rest_api.repository.UserRepository;
 import com.pro24y3s2doemakra.rest_api.service.UserService;
 import org.springframework.stereotype.Service;
@@ -13,9 +14,12 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
-    UserServiceImpl(UserRepository repository) {
+    UserServiceImpl(UserRepository repository, UserMapper userMapper) {
+
         this.userRepository = repository;
+        this.userMapper = userMapper;
     }
 
 
@@ -64,13 +68,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getById(Long id) {
+    public UserResponse getById(Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(
                         () -> new IllegalArgumentException("Data Not Found")
                 );
 
-        return user;
+        return userMapper.toResponse(user);
     }
 
 }
